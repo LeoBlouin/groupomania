@@ -17,7 +17,7 @@ const props = defineProps({
   modelValue: String,
 });
 
-defineEmits(["update:modelValue"]);
+defineEmits(["update:modelValue", "update:emailValidation"]);
 
 const isValid = ref<boolean>(true);
 
