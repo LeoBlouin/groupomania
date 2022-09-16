@@ -12,6 +12,8 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "axios": "^0.27.2",
+    "moment": "^2.29.4",
     "mosha-vue-toastify": "^1.0.23",
     "pinia": "^2.0.13",
     "vue": "^3.2.31",

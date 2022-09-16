@@ -1,8 +1,8 @@
-import { createToast } from "mosha-vue-toastify";
-import type { ToastType } from "mosha-vue-toastify";
+import { createToast } from 'mosha-vue-toastify'
+import type { ToastType } from 'mosha-vue-toastify'
 
 const defaultToast = (text: string, type: ToastType | undefined) => {
-  const formattedText = text.charAt(0).toUpperCase() + text.slice(1);
+  const formattedText = text.charAt(0).toUpperCase() + text.slice(1)
   createToast(formattedText, {
     type,
     showIcon: true,
@@ -10,11 +10,13 @@ const defaultToast = (text: string, type: ToastType | undefined) => {
     showCloseButton: true,
     swipeClose: true,
     timeout: 4000,
-    position: "top-right",
-    transition: "zoom",
-  });
-};
+    position: 'top-right',
+    transition: 'zoom',
+  })
+}
 
-export const successToast = (text: string) => defaultToast(text, "success");
+export const successToast = (text: string) => defaultToast(text, 'success')
 
-export const errorToast = (text: string) => defaultToast(text, "danger");
+export const errorToast = (text: string) => defaultToast(text, 'danger')
+
+export const warnToast = (text: string) => defaultToast(text, 'warning')

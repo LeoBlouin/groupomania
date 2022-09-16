@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
-import { column, beforeSave, BaseModel } from '@ioc:Adonis/Lucid/Orm'
+import { column, beforeSave, BaseModel, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+import Post from './Post'
 
 enum UserRole {
   USER = 'USER',
@@ -21,7 +22,13 @@ export default class User extends BaseModel {
   public role: UserRole
 
   @column()
-  public rememberMeToken?: string
+  public firstname: string
+
+  @column()
+  public lastname: string
+
+  @hasMany(() => Post)
+  public posts: HasMany<typeof Post>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

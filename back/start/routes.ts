@@ -22,9 +22,10 @@ import Route from '@ioc:Adonis/Core/Route'
 
 Route.post('auth/login', 'UsersController.login')
 Route.post('auth/register', 'UsersController.register')
+Route.post('auth/check-email', 'UsersController.checkIfEmailExists')
 
 Route.get('posts', 'PostsController.findAll')
 Route.get('posts/:id', 'PostsController.findOne')
 Route.post('posts', 'PostsController.store').middleware('auth')
-Route.put('posts/:id', 'PostsController.update')
-Route.delete('posts/:id', 'PostsController.delete')
+Route.put('posts/:id', 'PostsController.update').middleware('auth')
+Route.delete('posts/:id', 'PostsController.delete').middleware('auth')

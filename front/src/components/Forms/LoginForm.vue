@@ -1,16 +1,26 @@
 <script setup lang="ts">
+import { reactive } from 'vue'
+import AuthService from '@/services/auth.service'
 import InputWithLabel from '@/components/shared/Form/InputWithLabel.vue'
 import PrimaryButton from '@/components/shared/Buttons/PrimaryButton.vue'
-import { reactive } from 'vue'
-import { successToast } from '@/components/shared/Toasts/Toasts'
+import { successToast, errorToast } from '@/components/shared/Toasts/Toasts'
+import router from '@/router'
 
 const fields = reactive({
   email: '',
   password: '',
 })
 
-const onSubmitLoginForm = () => {
-  successToast('Vous êtes désormais connecté !')
+const onSubmitLoginForm = async () => {
+  try {
+    const authService = new AuthService()
+    const res: any = await authService.login(fields.email, fields.password)
+    sessionStorage.setItem('token', res.token)
+    successToast('Vous êtes désormais connecté !')
+    router.replace('/home')
+  } catch (err) {
+    errorToast('Adresse email ou mot de passe incorrect.')
+  }
 }
 </script>
 
@@ -26,12 +36,21 @@ const onSubmitLoginForm = () => {
       "
       errorMsg="Adresse email invalide."
       v-model="fields.email" />
+
     <InputWithLabel
       label="Mot de passe"
       type="password"
       name="password"
       placeholder="*****"
       v-model="fields.password" />
+
     <PrimaryButton text="Se connecter" />
+
+    <router-link to="/register">
+      <p class="text-center hover:text-primary hover:underline">
+        Pas encore de compte ? <br />
+        Inscrivez-vous ici
+      </p>
+    </router-link>
   </form>
 </template>

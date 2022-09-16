@@ -14,4 +14,11 @@ export default class UsersController {
     const payload = await request.validate(CreateUserValidator)
     return await User.create(payload)
   }
+
+  public async checkIfEmailExists({ request }: HttpContextContract) {
+    const email = request.input('email')
+    const user = await User.findBy('email', email)
+    if (user) return true
+    else return false
+  }
 }

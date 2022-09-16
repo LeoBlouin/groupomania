@@ -1,9 +1,20 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Post from 'App/Models/Post'
+import User from 'App/Models/User'
 
 export default class PostsController {
   public async findAll() {
-    return await Post.all()
+    const posts = await Post.all()
+    const postsWithAuthor: any[] = []
+
+    for (const post of posts) {
+      const user = await User.find(post.userId)
+      const author = `${user?.firstname} ${user?.lastname}`
+      const postSerialize = post.serialize()
+      postSerialize.author = author
+      postsWithAuthor.push(postSerialize)
+    }
+    return postsWithAuthor
   }
 
   public async findOne({ request }: HttpContextContract) {
@@ -12,17 +23,31 @@ export default class PostsController {
 
   public async store({ auth, request }: HttpContextContract) {
     const user = auth.user
-
     if (!user) return
 
-    const post = new Post()
-    post.title = request.body().title
-    post.content = request.body().content
-
-    await post.related('authorId').save(user)
+    return await user.related('posts').create({
+      title: request.body().title,
+      content: request.body().content
+    })
   }
 
-  public async update({}: HttpContextContract) {}
+  public async update({ auth, request }: HttpContextContract) {
+    const postId = request.param('id')
+    const post = await Post.findOrFail(postId)    
+    
+    const user = auth.user
+    if (!user || user.id !== post.userId) return
 
-  public async delete({}: HttpContextContract) {}
+    return await post.merge({ ...request.body() }).save()
+  }
+
+  public async delete({ auth, request }: HttpContextContract) {
+    const postId = request.param('id')
+    const post = await Post.findOrFail(postId)    
+    
+    const user = auth.user
+    if (!user || user.id !== post.userId) return
+
+    return await post.delete()
+  }
 }
