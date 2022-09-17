@@ -47,7 +47,7 @@ const onSubmitLoginForm = async () => {
         type="text"
         name="firstname"
         placeholder="Léo"
-        :regex="/^[A-Za-zéèëêôöâäàûüïî]{2}/"
+        :regex="/^.{2,}$/"
         errorMsg="Votre prénom doit contenir au moins 2 lettres."
         v-model="fields.firstname" />
 
@@ -57,7 +57,7 @@ const onSubmitLoginForm = async () => {
         type="text"
         name="lastname"
         placeholder="BLOUIN"
-        :regex="/^[A-Za-zéèëêôöâäàûüïî]{2}/"
+        :regex="/^.{2,}$/"
         errorMsg="Votre nom doit contenir au moins 2 lettres."
         v-model="fields.lastname" />
     </div>

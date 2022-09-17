@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import PostService from '@/services/post.service'
-import { onMounted, reactive } from 'vue'
+import { onMounted, onUpdated, reactive } from 'vue'
 import Post from './Post.vue'
 
 const state = reactive({
@@ -8,6 +8,8 @@ const state = reactive({
 })
 
 onMounted(() => getAllPosts())
+onUpdated(() => getAllPosts())
+
 const getAllPosts = async () => {
   const postService = new PostService()
   const allPosts: any = await postService.getAllPosts()
@@ -16,7 +18,7 @@ const getAllPosts = async () => {
 </script>
 
 <template>
-  <div class="my-20 flex flex-col space-y-14">
+  <div class="mt-10 mb-20 flex flex-col space-y-14">
     <Post v-for="post in state.posts" :post="post" />
   </div>
 </template>

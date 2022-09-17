@@ -18,7 +18,7 @@ export default class Post extends BaseModel {
   public filename: string | null
 
   @column()
-  public likes: number
+  public likes: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

@@ -10,7 +10,7 @@ export default class extends BaseSchema {
       table.string('title', 255).notNullable()
       table.string('content').notNullable()
       table.string('filename').nullable()
-      table.integer('likes').defaultTo(0)
+      table.string('likes').defaultTo('[]')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

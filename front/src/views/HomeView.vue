@@ -4,6 +4,7 @@ import router from '@/router'
 
 import Header from '@/components/shared/Header/Header.vue'
 import ListPost from '../components/Posts/ListPost.vue'
+import AddPost from '../components/Posts/AddPost.vue'
 
 onBeforeMount(() => {
   const token = sessionStorage.getItem('token')
@@ -16,6 +17,7 @@ onBeforeMount(() => {
 <template>
   <Header />
   <div class="container mx-auto px-5">
+    <AddPost />
     <ListPost />
   </div>
 </template>
