@@ -50,7 +50,7 @@ const likePost = async () => {
 </script>
 
 <template>
-  <div class="rounded-xl border border-gray-300 bg-white p-5 shadow-xl sm:p-8 md:p-10">
+  <li class="rounded-xl border border-gray-300 bg-white p-5 shadow-xl sm:p-8 md:p-10">
     <div class="mb-10 flex items-center justify-between">
       <div class="flex items-center">
         <img
@@ -86,5 +86,5 @@ const likePost = async () => {
       <i v-if="!isLiked" @click="likePost" class="fa-regular fa-heart cursor-pointer text-xl"></i>
       <p>{{ numberOfLikes }}</p>
     </div>
-  </div>
+  </li>
 </template>
